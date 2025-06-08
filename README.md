@@ -27,3 +27,13 @@ npm run dev
 ```sh
 npm run build
 ```
+# MOHON DIBACA
+NOTE :
+1. assest gambar lihat di direktori ../assets/gambar
+2. font udah keubah
+3. buat color bisa dilihat di base.css
+4. untuk category bisa nampilin sesuai event (didatabase jsonnya udah ada kolom event)
+5. database bisa dilihat di ../src/data didalam nya itu json buat database (misal ada yang kurang bisa bilang ke aku dulu buat diubah)
+6. asset product ada di components dan contoh penggunaannya ada di ../views/HomePage.vue
+7. views itu buat pagenya
+8. ngelink antar page pake router.js bukan main.js
