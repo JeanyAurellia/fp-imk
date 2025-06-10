@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Navbar from './views/Navbar.vue'
 import HomePage from './views/HomePage.vue' 
 import CollectionPage from './views/CollectionPage.vue'
 
