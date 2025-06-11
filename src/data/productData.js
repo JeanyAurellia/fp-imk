@@ -5,12 +5,13 @@ export const products = [
     id: '1',
     name: 'ODYSSEY WEAR THE WORLD T-SHIRT (BLACK)',
     material: '100% Cotton',
-    price: 199000,
-    availableSizes: ['S', 'M', 'L'],
+    price: 250000,
+    availableSizes: ['S', 'M', 'L', 'XL'],
     stock: {
       S: 12,
       M: 8,
       L: 3,
+      XL: 2,
     },
     images: [
       {
@@ -31,11 +32,11 @@ export const products = [
     id: '2',
     name: '[PRE-ORDER] ODYSSEY AIRPORT JACKET (MIDNIGHT & IVORY)',
     material: '100% Cotton French Terry Fabric',
-    price: 399000,
+    price: 600000,
     availableSizes: ['S', 'M', 'L', 'XL'],
     stock: {
       S: 5,
-      M: 0, // Example: M is out of stock for this product
+      M: 0, 
       L: 10,
       XL: 2,
     },
@@ -58,7 +59,7 @@ export const products = [
     id: '3',
     name: '[CHILLACATION HAWAII SHIRT',
     material: '100% Cotton French Terry Fabric',
-    price: 199000,
+    price: 450000,
     availableSizes: ['S', 'M', 'L', 'XL'],
     stock: {
       S: 2,

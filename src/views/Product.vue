@@ -218,7 +218,7 @@ export default {
 
 <style scoped>
 .product-page {
-  background-color: #f8f8f8;
+  background-color: #F4EEE0;
   min-height: 100vh;
 }
 
@@ -233,7 +233,7 @@ export default {
 
 .product-header h1 {
   margin: 0;
-  font-size: 18px;
+  font-size: 42px;
   font-weight: 600;
   letter-spacing: 0.5px;
   padding: 0 40px;
@@ -246,7 +246,7 @@ export default {
   padding: 30px 40px;
   display: flex;
   gap: 40px;
-  background-color: white;
+  background-color: #F4EEE0;
   border-radius: 0;
   min-height: calc(100vh - 200px);
 }
@@ -419,7 +419,7 @@ export default {
   width: 50px;
   height: 50px;
   border: 2px solid #e0e0e0;
-  background-color: white;
+  background-color: #F4EEE0;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
@@ -436,13 +436,13 @@ export default {
 .size-button.active {
   background-color: #6b5b73;
   border-color: #6b5b73;
-  color: white;
+  color: #F4EEE0;
 }
 
 .size-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  background-color: #f0f0f0;
+  background-color: #F4EEE0;
 }
 
 /* Quantity Selector */
@@ -460,7 +460,7 @@ export default {
   width: 45px;
   height: 45px;
   border: none;
-  background-color: white;
+  background-color: #F4EEE0;
   font-size: 20px;
   font-weight: 600;
   color: #666;
@@ -473,7 +473,7 @@ export default {
 
 .quantity-btn:hover:not(:disabled) {
   background-color: #6b5b73;
-  color: white;
+  color: #F4EEE0;
 }
 
 .quantity-btn:disabled {
@@ -491,7 +491,7 @@ export default {
   font-size: 16px;
   font-weight: 600;
   color: #333;
-  background-color: white;
+  background-color: #F4EEE0;
 }
 
 .quantity-input:focus {
