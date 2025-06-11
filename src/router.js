@@ -3,6 +3,7 @@ import Navbar from './views/Navbar.vue'
 import HomePage from './views/HomePage.vue' 
 import CollectionPage from './views/CollectionPage.vue'
 import ProductPage from './views/Product.vue'
+import ProfilePage from './views/Profile.vue'
 
 const routes = [
   {
@@ -20,6 +21,11 @@ const routes = [
     name: 'Product',
     component: ProductPage,
     props: true // Mengaktifkan props dari route params
+  },
+    {
+    path: '/profile',
+    name: 'Profile',
+    component: ProfilePage
   }
   //   {
   //   path: '/product', 
