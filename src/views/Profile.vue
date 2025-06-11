@@ -7,7 +7,6 @@
         <h1 class="text-3xl font-bold mb-8">Edit Your Profile</h1>
 
         <div class="space-y-6">
-          <!-- Profile Info -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
             <div>
               <label for="firstName" class="block text-sm font-semibold mb-2">First Name</label>
@@ -31,36 +30,45 @@
             </div>
           </div>
 
-          <!-- Password Section -->
           <div>
             <h2 class="text-xl font-bold mb-4">Password Changes</h2>
-            <div class="space-y-4">
+            <div class="grid grid-cols-1 gap-y-6">
               <div>
-                <input type="password" placeholder="Current Password" v-model="currentPassword"
+                <label for="currentPassword" class="block text-sm font-semibold mb-2">Current Password</label>
+                <input type="password" id="currentPassword" v-model="currentPassword"
                   class="w-full p-3 rounded-md bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400">
               </div>
               <div>
-                <input type="password" placeholder="New Password" v-model="newPassword"
+                <label for="newPassword" class="block text-sm font-semibold mb-2">New Password</label>
+                <input type="password" id="newPassword" v-model="newPassword"
                   class="w-full p-3 rounded-md bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400">
               </div>
               <div>
-                <input type="password" placeholder="Confirm New Password" v-model="confirmNewPassword"
+                <label for="confirmNewPassword" class="block text-sm font-semibold mb-2">Confirm New Password</label>
+                <input type="password" id="confirmNewPassword" v-model="confirmNewPassword"
                   class="w-full p-3 rounded-md bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400">
               </div>
             </div>
           </div>
 
-          <!-- Buttons -->
-          <div class="flex justify-end items-center gap-4 mt-8">
-            <button class="py-2 px-4 rounded-md hover:bg-gray-200 transition-colors font-semibold"
-              style="color: var(--c-dark-purple);">
-              Cancel
-            </button>
-            <button @click="saveChanges"
+          <div class="flex justify-between items-center pt-4">
+            <button @click="signOut"
               class="text-white py-3 px-6 rounded-md font-semibold transition hover:opacity-80"
-              style="background-color: var(--c-dark-purple);">
-              Save Changes
+              style="background-color: #A34343;">
+              Sign Out
             </button>
+
+            <div class="flex items-center gap-4">
+              <button @click="cancelChanges" class="py-2 px-4 rounded-md hover:bg-gray-200 transition-colors font-semibold"
+                style="color: var(--c-dark-purple);">
+                Cancel
+              </button>
+              <button @click="saveChanges"
+                class="text-white py-3 px-6 rounded-md font-semibold transition hover:opacity-80"
+                style="background-color: var(--c-dark-purple);">
+                Save Changes
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -85,18 +93,33 @@ const confirmNewPassword = ref('')
 const userProfile = {
   firstName: 'IMK A',
   lastName: 'Kelompok 3',
-  email: 'clara@email.com',
+  email: 'kel3@email.com',
   address: 'Jl. IT ITS',
   // currentPassword tidak disimpan
 }
 
+// Fungsi untuk mereset form ke data awal
+const resetForm = () => {
+  firstName.value = userProfile.firstName;
+  lastName.value = userProfile.lastName;
+  email.value = userProfile.email;
+  address.value = userProfile.address;
+
+  // Kosongkan password fields
+  currentPassword.value = '';
+  newPassword.value = '';
+  confirmNewPassword.value = '';
+}
+
 // Auto-set data saat komponen dimount
 onMounted(() => {
-  firstName.value = userProfile.firstName
-  lastName.value = userProfile.lastName
-  email.value = userProfile.email
-  address.value = userProfile.address
+  resetForm();
 })
+
+// Fungsi untuk membatalkan perubahan
+const cancelChanges = () => {
+  resetForm();
+}
 
 // Validasi dan Simpan
 const saveChanges = () => {
@@ -127,6 +150,17 @@ const saveChanges = () => {
     newPassword: newPassword.value
   })
 
-  alert('Perubahan profil berhasil disimpan!')
+  alert('Perubahan profil berhasil disimpan!');
+
+  // Kosongkan field password setelah berhasil disimpan
+  currentPassword.value = '';
+  newPassword.value = '';
+  confirmNewPassword.value = '';
+}
+
+// Fungsi untuk Sign Out
+const signOut = () => {
+  alert('Anda telah berhasil sign out.');
+  // Di sini Anda bisa menambahkan logika lain seperti redirect ke halaman login
 }
 </script>
