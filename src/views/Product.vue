@@ -85,7 +85,11 @@
           </div>
 
           <div class="action-buttons">
-            <button class="btn-add-to-cart" :disabled="!inStock">
+            <button
+              class="btn-add-to-cart"
+              :disabled="!inStock"
+              @click="addToCart"
+            >
               {{ inStock ? 'Add to Cart' : 'Out of Stock' }}
             </button>
           </div>
@@ -96,8 +100,9 @@
 </template>
 
 <script>
-import Navbar from './Navbar.vue';
-import { products } from '../data/productData'; // Import the products array
+import Navbar from './Navbar.vue'
+import { products } from '../data/productData'
+import cart from '@/utils/CartManager.js'
 
 export default {
   name: 'Product',
@@ -105,115 +110,118 @@ export default {
     Navbar,
   },
   props: {
-    id: { // Define 'id' as a prop
-      type: String, // Or Number, depending on your product IDs
+    id: {
+      type: String,
       required: true,
     },
   },
   data() {
     return {
-      product: null, // Initialize product as null
+      product: null,
       selectedImageIndex: 0,
       selectedSize: '',
       quantity: 1,
-    };
+    }
   },
   created() {
-    this.loadProductData();
+    this.loadProductData()
   },
   watch: {
-    // Watch for changes in the route parameter 'id' if the component is reused
     '$route.params.id': 'loadProductData',
   },
   computed: {
     selectedImage() {
-      // Ensure product and images exist before accessing
       return this.product && this.product.images[this.selectedImageIndex]
         ? this.product.images[this.selectedImageIndex]
-        : { thumb: '', main: '' }; // Fallback empty object
+        : { thumb: '', main: '' }
     },
     formattedPrice() {
-      return this.product ? this.product.price.toLocaleString('id-ID') : '0';
+      return this.product ? this.product.price.toLocaleString('id-ID') : '0'
     },
     currentStock() {
       return this.product && this.product.stock[this.selectedSize] !== undefined
         ? this.product.stock[this.selectedSize]
-        : 0;
+        : 0
     },
     inStock() {
-      return this.currentStock > 0;
+      return this.currentStock > 0
     },
     stockStatusText() {
-      return this.inStock ? `In Stock (${this.currentStock})` : 'Out of Stock';
+      return this.inStock ? `In Stock (${this.currentStock})` : 'Out of Stock'
     },
     stockStatusClass() {
       return {
         'in-stock': this.inStock,
         'out-of-stock': !this.inStock,
-      };
+      }
     },
     maxQuantity() {
-      return this.currentStock;
+      return this.currentStock
     },
   },
   methods: {
     loadProductData() {
-      // Find the product based on the 'id' prop from the route
-      const foundProduct = products.find(p => p.id === this.id);
+      const foundProduct = products.find(p => p.id === this.id)
 
       if (foundProduct) {
-        this.product = foundProduct;
-        // Set initial selected size
+        this.product = foundProduct
+
         if (this.product.availableSizes.length > 0) {
-          this.selectedSize = this.product.availableSizes[0];
-          if (!this.isSizeAvailable(this.selectedSize)) {
-            const firstAvailable = this.product.availableSizes.find(size => this.isSizeAvailable(size));
-            if (firstAvailable) {
-              this.selectedSize = firstAvailable;
-            } else {
-              this.selectedSize = '';
-            }
-          }
+          this.selectedSize = this.product.availableSizes.find(size => this.isSizeAvailable(size)) || ''
         }
-        this.selectedImageIndex = 0; // Reset image to first when product changes
-        this.quantity = 1; // Reset quantity
+
+        this.selectedImageIndex = 0
+        this.quantity = 1
       } else {
-        // Handle case where product is not found, e.g., redirect to 404 or home
-        console.error('Product not found for ID:', this.id);
-        // this.$router.push('/'); // Example: redirect to homepage
+        console.error('Product not found for ID:', this.id)
       }
     },
     selectImage(index) {
-      this.selectedImageIndex = index;
+      this.selectedImageIndex = index
     },
     selectSize(size) {
-      this.selectedSize = size;
+      this.selectedSize = size
     },
     isSizeAvailable(size) {
-      return this.product && this.product.stock[size] > 0;
+      return this.product && this.product.stock[size] > 0
     },
     increaseQuantity() {
       if (this.quantity < this.maxQuantity) {
-        this.quantity++;
+        this.quantity++
       }
     },
     decreaseQuantity() {
       if (this.quantity > 1) {
-        this.quantity--;
+        this.quantity--
       }
     },
     validateQuantity(event) {
-      let value = parseInt(event.target.value);
+      let value = parseInt(event.target.value)
       if (isNaN(value) || value < 1) {
-        this.quantity = 1;
+        this.quantity = 1
       } else if (value > this.maxQuantity) {
-        this.quantity = this.maxQuantity;
+        this.quantity = this.maxQuantity
       } else {
-        this.quantity = value;
+        this.quantity = value
       }
     },
+    addToCart() {
+      if (!this.inStock || !this.selectedSize || !this.product) return
+
+      const selectedProduct = {
+        id: `${this.product.id}-${this.selectedSize}`, // Unik berdasarkan ID + size
+        name: this.product.name,
+        price: this.product.price,
+        image: this.product.images[0].main,
+        size: this.selectedSize,
+        quantity: this.quantity,
+      }
+
+      cart.addToCart(selectedProduct)
+      alert('Produk ditambahkan ke keranjang!')
+    },
   },
-};
+}
 </script>
 
 <style scoped>
