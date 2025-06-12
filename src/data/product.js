@@ -46,5 +46,5 @@ export default [
     image : new URL('../assets/gambar/perfectskort.jpg', import.meta.url).href,
     inStock : true,
     event: 'Perfect Match'
-  }
+  },
 ]
